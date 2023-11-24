@@ -1,3 +1,4 @@
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # export pyenv to path, relevant when using pyenv-installer
@@ -11,7 +12,9 @@ export PYTHON_VERSION='3.10'
 new_venv() { pyenv virtualenv ${1:-$PYTHON_VERSION} $(basename "$PWD") && pyenv local $(basename "$PWD") ${1:-$PYTHON_VERSION}; }
 
 
+#command -v pipx > /dev/null && eval "$(register-python-argcomplete pipx)"
 # Enable auto-complete for pipx (global python library)
+#  this is what is behind the complete error
 eval "$(register-python-argcomplete pipx)"
 
 export VISUAL='/usr/bin/vim'
@@ -40,3 +43,22 @@ zstyle ':completion:*' list-colors ${(s.:.)LSCOLORS}
 
 ## Add forward slash to wordchars
 WORDCHARS="${WORDCHARS/\//}"
+alias hcn="hendrix compute -n content-safety-analysis"
+
+# ----------------------- pyenv ------------------------------
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yahiae/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yahiae/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yahiae/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yahiae/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Created by `pipx` on 2023-09-08 09:34:08
+export PATH="$PATH:/Users/yahiae/.local/bin"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
